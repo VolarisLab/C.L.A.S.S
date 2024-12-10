@@ -29,6 +29,6 @@ jobs:
         find . -type d -name 'bin' | while read bin_dir; do
           find "$bin_dir" -type f -executable | while read exe; do
             echo "Running valrind on $exe"
-            valgrind --leak-check=full --track-fds=yes --error-exitcode=1 "$exe"
+            valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --error-exitcode=1 "$exe"
           done
         done
