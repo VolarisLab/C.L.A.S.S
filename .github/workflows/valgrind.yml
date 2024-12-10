@@ -24,9 +24,11 @@ jobs:
     - name: Build project
       run: make
 
-    - name: Run tests with valgrind
+    - name: Run tests with valgrind on all executables
       run: |
-        find . -type f -name 'app-*' -executable | while read exe; do
-          echo "Running valrind on $exe"
-          valgrind --leak-check=full --track-fds=yes --error-exitcode=1 "$exe"
+        find . -type d -name 'build' | while read build_dir; do
+          find "$build_dir" -type f -executable | while read exe; do
+            echo "Running valrind on $exe"
+            valgrind --leak-check=full --track-fds=yes --error-exitcode=1 "$exe"
+          done
         done
