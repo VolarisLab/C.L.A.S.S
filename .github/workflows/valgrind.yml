@@ -26,8 +26,8 @@ jobs:
 
     - name: Run tests with valgrind on all executables
       run: |
-        find . -type d -name 'build' | while read build_dir; do
-          find "$build_dir" -type f -executable | while read exe; do
+        find . -type d -name 'bin' | while read bin_dir; do
+          find "$bin_dir" -type f -executable | while read exe; do
             echo "Running valrind on $exe"
             valgrind --leak-check=full --track-fds=yes --error-exitcode=1 "$exe"
           done
